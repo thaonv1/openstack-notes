@@ -8,15 +8,15 @@ Trước đây, neutron có phát triển một module để cung cấp LBaaS đ
 
 ## Các concept cơ bản
 
-LBaaS: Load Balancing as a Service
-LoadBalancer: Root object của dịch vụ cân bằng tải, người dùng định nghĩa các cấu hình trên đây.
-VIP: Địa chỉ IP ảo được liên kết với LoadBalancer. Mỗi LoadBalancer có ít nhất một VIP để bên ngoài truy cập vào back-end
-Listener: Listener thuộc LB, có thể được cấu hình để monitor loại truy cập tới VIP.
-Pool: Cụm cluster máy chủ ở backend.
-Member: Cloud host thuộc pool
-Health Monitor: Liên kết với pool, định kì sẽ check các member trong pool
-L7 Policy: Policy layer 7 sẽ quyết định hành động foward packet
-L7 Rule: Thuộc L7 policy, định nghĩa việc matching giữa domain với phần packet forward
+- `LBaaS`: Load Balancing as a Service
+- `LoadBalancer`: Root object của dịch vụ cân bằng tải, người dùng định nghĩa các cấu hình trên đây.
+- `VIP`: Địa chỉ IP ảo được liên kết với LoadBalancer. Mỗi LoadBalancer có ít nhất một VIP để bên ngoài truy cập vào back-end
+- `Listener`: Listener thuộc LB, có thể được cấu hình để monitor loại truy cập tới VIP.
+- `Pool`: Cụm cluster máy chủ ở backend.
+- `Member`: Cloud host thuộc pool
+- `Health Monitor`: Liên kết với pool, định kì sẽ check các member trong pool
+- `L7 Policy`: Policy layer 7 sẽ quyết định hành động foward packet
+- `L7 Rule`: Thuộc L7 policy, định nghĩa việc matching giữa domain với phần packet forward
 
 ## Quy trình sử dụng cơ bản
 
@@ -26,12 +26,12 @@ L7 Rule: Thuộc L7 policy, định nghĩa việc matching giữa domain với p
 
 Trong kiến trúc trên sẽ có những thành phần:
 
-Amphora(e): Là một thực thể thực hiện các nhiệm vụ của một load balancer, nó cũng là provider mặc định khi dùng Octavia
-lb-mgmt-net: Network kết nối OpenStack mgnt/api network với Amphora và Octavia Service.
-tenant-net : Network của các máy chủ cloud ở backend
-vip-net : Network cung cấp các VIP để truy cập từ bên ngoài vào.
+- `Amphora(e)`: Là một thực thể thực hiện các nhiệm vụ của một load balancer, nó cũng là provider mặc định khi dùng Octavia
+- `lb-mgmt-net`: Network kết nối OpenStack mgnt/api network với Amphora và Octavia Service.
+- `tenant-net` : Network của các máy chủ cloud ở backend
+- `vip-net` : Network cung cấp các VIP để truy cập từ bên ngoài vào.
 
-Lưu ý: tenant-network và vip-net hoàn toàn có thể gộp thành 1, thậm chí bạn có thể gộp luôn cả lb-mgmt-net vào. Tuy nhiên ta nên tách ra để có thể phân hoạch cũng như sử dụng các chính sách bảo mật tốt hơn trong môi trường production.
+**Lưu ý**: tenant-network và vip-net hoàn toàn có thể gộp thành 1, thậm chí bạn có thể gộp luôn cả lb-mgmt-net vào. Tuy nhiên ta nên tách ra để có thể phân hoạch cũng như sử dụng các chính sách bảo mật tốt hơn trong môi trường production.
 
 Đây là mô hình khởi đầu khi chưa có kết nối của Octavia
 
@@ -39,25 +39,25 @@ Lưu ý: tenant-network và vip-net hoàn toàn có thể gộp thành 1, thậm
 
 Các bước để khởi tạo LB trên dashboard
 
-Bước 1: Khai báo VIP, nó sẽ được lựa chọn để gán trực tiếp qua DHCP
+**Bước 1**: Khai báo VIP, nó sẽ được lựa chọn để gán trực tiếp qua DHCP
 
 <img src="https://i.imgur.com/wZ6ufc2.png">
 
-Bước 2: Chỉ định giao thức và port sẽ được monitor bởi listener
+**Bước 2**: Chỉ định giao thức và port sẽ được monitor bởi listener
 
 Như dưới đây là ta sẽ truy cập thông qua địa chỉ sau: `http://VIP:8080`
 
 <img src="https://i.imgur.com/K2RXdJY.png">
 
-Bước 3: Xác định thuật toán LB, ta có 3 loại để có thể lựa chọn
+**Bước 3**: Xác định thuật toán LB, ta có 3 loại để có thể lựa chọn
 
 <img src="https://i.imgur.com/3D9WCnb.png">
 
-Bước 4: Chỉ định member cho pool, bạn cũng cần phải xác định port để chuyển tiếp kết nối và mức độ ưu tiên thông qua 2 thông số là port và weight
+**Bước 4**: Chỉ định member cho pool, bạn cũng cần phải xác định port để chuyển tiếp kết nối và mức độ ưu tiên thông qua 2 thông số là port và weight
 
 <img src="https://i.imgur.com/mlwgI1A.png">
 
-Bước 5: Xác định health check rule, nếu member không thể phản hồi health check, member đó sẽ bị đánh dấu fail và không còn chấp nhận chuyển tiếp từ trên LB nữa
+**Bước 5**: Xác định health check rule, nếu member không thể phản hồi health check, member đó sẽ bị đánh dấu fail và không còn chấp nhận chuyển tiếp từ trên LB nữa
 
 <img src="https://i.imgur.com/HUXEguX.png">
 
@@ -86,4 +86,3 @@ Thiết kế của Octavia vẫn theo hướng provider - client giao tiếp b�
     - Housekeeping Manager: dọn dẹp môi trường cho octavia, nó sẽ dựa vào cấu hình và db để dọn dẹp các amphora ko còn cần thiết nữa
 
 Với kiến trúc Driver & Plugin thì Amphora có thể sẵn sàng cho việc tích hợp với các provider khác ví dụ như f5.
-
