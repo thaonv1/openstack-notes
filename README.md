@@ -1,1 +1,1 @@
-# openstack-notes
+# Some notes about OpenStack
