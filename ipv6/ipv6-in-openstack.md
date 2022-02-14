@@ -4,6 +4,8 @@ Lưu ý: Hướng dẫn này sử dụng dual subnet ipv4 vs ipv6
 
 - Tạo subnet IPv4 như bình thường
 
+- Tạo thêm subnet IPv6
+
 <img src="images/Screenshot_10.png">
 
 <img src="images/Screenshot_11.png">
