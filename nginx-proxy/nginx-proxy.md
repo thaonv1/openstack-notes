@@ -2,7 +2,7 @@
 
 ## 1. Mô hình
 
-<img src="../images/Screenshot_1.png">
+<img src="../images/Screenshot_2.png">
 
 - OS Sử dụng Ubuntu 20.04
 - Đã có 1 cụm OPS HA 3 node chạy kolla ansible
