@@ -7,6 +7,8 @@
 - OS Sử dụng Ubuntu 20.04
 - Đã có 1 cụm OPS HA 3 node chạy kolla ansible
 
+Tham khảo file globals.yml [tại đây](../scripts/globals.yml)
+
 ## 2. Cài đặt Nginx
 
 ```
